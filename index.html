@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" src="style.css">
+    </head>
+    <nav>
+    </nav>
+    <header>
+    </header>
+    <!--basic grocery list in alpine-->
+    <!-- <body>
+        <div x-data="{
+            listType: ' ',
+            shoppingList: [],
+            item:'',
+            add(){this.shoppingList.push(this.item)},
+            remove(item){this.shoppingList.splice(this.shoppingList.indexOf(item), 1)},
+            showList: false,
+            showListTypeSelector: true
+        }">
+        <div x-show="showListTypeSelector">
+            <h1>What kind of list do you want to make?</h1>
+            <select x-model="listType">
+                <option value="" disabled>Select A List Type</option>
+                <option>To-Do</option>
+                <option>Grocery</option>
+                <option>Chore</option>
+            </select>
+            <br><br>
+            <button @click="showList =! showList" x-transition>Make a <span x-text="listType"></span> List</button>
+        </div> -->
+            <!--hidden until an inital type is chosen-->
+            <!-- <div x-show="showList">
+                <h1 x-text="listType"></h1>
+                <div class="input-group mb-3">
+                    <input x-model="item" type="text"> -->
+                    <!--@ can be used to substitute x-on for event listeners-->
+                    <!-- <button @click="add">Add a 
+                        <span x-text="listType"></span> 
+                        Item
+                        <span x-text="shoppingList.length"></span>
+                    </button>
+                </div>
+                <ul>
+                    <template x-for="item in shoppingList">
+                        <li>
+                            <span x-text="item"></span> 
+                            <button @click="remove(item)">&times;</button> -->
+                            <!-- <button @click="edit()">&times;</button> -->
+                        <!-- </li>
+                    </template>
+                </ul>
+            </div>
+        </div> 
+    </body>-->
+    <!--more complex list with alpine-->
+    <body>
+        <div x-data="listApp()">
+        <h1 x-text="welcomeMsg"></h1>
+        <div class="add-section">
+            <form>
+                <fieldset>
+                    <input
+                    x-model="item"
+                    type="text"
+                    placeholder="Add an item!"
+                    />
+                    <button @click="addItem">Add Item</button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="list-section">
+            <template
+            x-show="items.length"
+            x-for="item in items"
+            >
+            <li>
+                <!--no editing-->
+                <span x-text="item" x-show="!item.editing"></span> 
+                <!--editing-->
+                <input 
+                type="text"
+                x-show="item.editing"
+                x-model="item"
+                :value="item"
+                @click.away="task.editing=false"
+                class="item-edit"
+              />
+                <button @click="remove(item)">&times;</button>
+                <button @click="edit(item)" x-show="!item.editing">Edit</button>
+           </li>
+            </template>
+            <!--if there aren't any tasks...-->
+            <div x-show="!items.length">No plans for today!</div>
+        </div>
+    </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.8/dist/cdn.min.js"></script>
+    <script src="script.js"></script>
+</html>
